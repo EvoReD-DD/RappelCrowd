@@ -23,6 +23,5 @@ public class TrigerCountControler : MonoBehaviour
     public void RopeDestroyEvent()
     {
         Destroy(ropePrefab);
-        Debug.Log("destroyrope");
     }
 }

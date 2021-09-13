@@ -4,8 +4,11 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     [SerializeField] Rigidbody player;
-    [SerializeField] float powerForce = 80000f;
+    [SerializeField] float powerForce = 100f;
     [SerializeField] float powerJump = 100f;
+    [SerializeField] Transform enemy;
+    [SerializeField] Transform countTransform;
+    [SerializeField] Transform camera;
     Animator playerAnimator;
 
     [Header("OnCollisionEvent!")]
@@ -16,9 +19,12 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        Move();
+    }
+    void Move()
+    {
         if (Input.GetMouseButton(0))
         {
-
             player.AddForce(-Vector3.right * powerForce * Time.deltaTime, ForceMode.VelocityChange);
         }
         if (Input.GetMouseButtonUp(0))
@@ -31,14 +37,12 @@ public class Player : MonoBehaviour
         if (collider.tag == "Enemy")
         {
             onCollisionEnterEvent.Invoke();
-
-            Debug.Log("Enemy");
         }
     }
-
-    void PlayerlookEnemy()
+    public void PlayerlookEnemy()
     {
-
+        player.transform.LookAt(enemy);
+        countTransform.transform.rotation=camera.transform.rotation;
     }
     public void AnimatorSet()
     {
