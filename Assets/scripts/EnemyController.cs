@@ -7,16 +7,20 @@ public class EnemyController : MonoBehaviour
     [SerializeField] GameObject[] prefabEnemyArray;
     [SerializeField] Transform enemySpace;
     [SerializeField] Animator[] animationEnemy;
+    Transform playerTransform;
 
     private void Start()
     {
         InstantiateEnemyPrefab();
+        playerTransform = player.GetComponent<Transform>();
     }
     public void FightTrigger()
     {
         for (int i = 0; i < animationEnemy.Length; i++)
         {
             animationEnemy[i].SetTrigger("fight");
+            animationEnemy[i].transform.LookAt(playerTransform);
+            prefabEnemyArray[i].transform.position = playerTransform.position;
         }
     }
     void InstantiateEnemyPrefab()

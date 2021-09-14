@@ -69,6 +69,7 @@
   <ItemGroup>
     <None Include="Assets\Meshes\Enemy\Shaders\Legacy\CelShader.shader" />
     <None Include="Assets\Meshes\Enemy\Shaders\SupercyanShader.shader" />
+    <None Include="Assets\BrokenVector\FreeLowPolyPack\readme.txt" />
     <None Include="Assets\Meshes\Enemy\Shaders\SupercyanShaderLighting.cginc" />
     <None Include="Assets\Meshes\Rope\ProjectSettings\ProjectVersion.txt" />
   </ItemGroup>
@@ -705,6 +706,9 @@
     </Reference>
     <Reference Include="Unity.Mathematics">
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

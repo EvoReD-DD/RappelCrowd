@@ -4,8 +4,6 @@ using UnityEngine;
 public class TrigerCountControler : MonoBehaviour
 {
     #region variable
-    [SerializeField] Collider positiveCountTriger;
-    [SerializeField] Collider negativeCountTriger;
     [SerializeField] GameObject prefab;
     [SerializeField] Transform player;
     [SerializeField] GameObject decal;
