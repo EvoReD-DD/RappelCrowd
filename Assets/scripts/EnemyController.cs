@@ -7,7 +7,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] GameObject[] prefabEnemyArray;
     [SerializeField] Transform enemySpace;
     [SerializeField] Animator[] animationEnemy;
+    [SerializeField] float speedMoveEnemy = 1f;
     Transform playerTransform;
+    
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class EnemyController : MonoBehaviour
         {
             animationEnemy[i].SetTrigger("fight");
             animationEnemy[i].transform.LookAt(playerTransform);
-            prefabEnemyArray[i].transform.position = playerTransform.position;
+            prefabEnemyArray[i].transform.position = playerTransform.position*Time.deltaTime;
         }
     }
     void InstantiateEnemyPrefab()
@@ -34,7 +36,6 @@ public class EnemyController : MonoBehaviour
         }
         for (int y = 0; y < prefabEnemyArray.Length; y++)
         {
-
             animationEnemy[y] = prefabEnemyArray[y].GetComponent<Animator>();
         }
     }
