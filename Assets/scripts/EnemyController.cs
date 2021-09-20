@@ -1,31 +1,40 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    [SerializeField] GameObject prefabEnemy;
-    [SerializeField] GameObject[] prefabEnemyArray;
-    [SerializeField] Transform enemySpace;
-    [SerializeField] Animator[] animationEnemy;
-    [SerializeField] float speedMoveEnemy = 1f;
-    Transform playerTransform;
-    
-
+    #region variable
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject prefabEnemy;
+    [SerializeField] private GameObject[] prefabEnemyArray;
+    [SerializeField] private Transform enemySpace;
+    [SerializeField] private Animator[] animationEnemy;
+    [SerializeField] private Vector3 offset;
+    private Transform playerTransform;
+    #endregion
     private void Start()
     {
         InstantiateEnemyPrefab();
         playerTransform = player.GetComponent<Transform>();
     }
-    public void FightTrigger()
+    public void RunToPlayer()
     {
         for (int i = 0; i < animationEnemy.Length; i++)
         {
-            animationEnemy[i].SetTrigger("fight");
-            animationEnemy[i].transform.LookAt(playerTransform);
-            prefabEnemyArray[i].transform.position = playerTransform.position*Time.deltaTime;
+            animationEnemy[i].SetTrigger("Run");
         }
     }
-    void InstantiateEnemyPrefab()
+    public void OnTriggerEnter(Collider player)
+    {
+        if (player.tag == "FightStart")
+        {
+            for (int i = 0; i < animationEnemy.Length; i++)
+            {
+                animationEnemy[i].SetTrigger("fight");
+            }
+        }
+    }
+    private void InstantiateEnemyPrefab()
     {
         prefabEnemyArray = new GameObject[10];
         animationEnemy = new Animator[10];
@@ -37,6 +46,14 @@ public class EnemyController : MonoBehaviour
         for (int y = 0; y < prefabEnemyArray.Length; y++)
         {
             animationEnemy[y] = prefabEnemyArray[y].GetComponent<Animator>();
+        }
+    }
+    public void OnTriggerStay(Collider other)
+    {
+        for (int i = 0; i < animationEnemy.Length; i++)
+        {
+            animationEnemy[i].transform.LookAt(playerTransform);
+            prefabEnemyArray[i].transform.position = Vector3.Slerp(prefabEnemyArray[i].transform.position, playerTransform.position + offset, Time.deltaTime);
         }
     }
 }

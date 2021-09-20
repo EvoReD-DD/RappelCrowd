@@ -4,12 +4,12 @@ using UnityEngine;
 public class TrigerCountControler : MonoBehaviour
 {
     #region variable
-    [SerializeField] GameObject prefab;
-    [SerializeField] Transform player;
-    [SerializeField] GameObject decal;
-    [SerializeField] GameObject ropePrefab;
+    [SerializeField] private GameObject prefab;
+    [SerializeField] private Transform player;
+    [SerializeField] private GameObject decal;
+    [SerializeField] private GameObject ropePrefab;
     #endregion
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         ContactPoint contact = collision.GetContact(0);
         Vector3 pos = contact.point;

@@ -6,29 +6,27 @@ using System;
 public class Player : MonoBehaviour
 {
     #region Variables
-    [SerializeField] Rigidbody player;
-    [SerializeField] float powerForce = 100f;
-    [SerializeField] float powerJump = 100f;
-    [SerializeField] Transform enemy;
-    [SerializeField] Transform countTransform;
-    [SerializeField] Transform camera;
-    [SerializeField] Text textCount;
-    Animator playerAnimator;
-    int trigerCountWeight = 1;
+    [SerializeField] private Rigidbody player;
+    [SerializeField] private float powerForce = 100f;
+    [SerializeField] private float powerJump = 100f;
+    [SerializeField] private Transform enemy;
+    [SerializeField] private Transform countTransform;
+    [SerializeField] private Transform camera;
+    [SerializeField] private Text textCount;
+    private Animator playerAnimator;
+    private int trigerCountWeight = 1;
     #endregion
-
-
     [Header("OnCollisionEvent!")]
     public UnityEvent onCollisionEnterEvent;
     private void Start()
     {
         playerAnimator = player.GetComponent<Animator>();
     }
-    void Update()
+    private void Update()
     {
         Move();
     }
-    void Move()
+    private void Move()
     {
         if (Input.GetMouseButton(0))
         {
@@ -39,7 +37,7 @@ public class Player : MonoBehaviour
             player.AddForce(Vector3.right * powerJump * Time.deltaTime, ForceMode.VelocityChange);
         }
     }
-    void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == "Enemy")
         {
@@ -63,16 +61,17 @@ public class Player : MonoBehaviour
     {
         playerAnimator.SetTrigger("Fight");
     }
-    void PlayerIncreaseCount()
+    private void PlayerIncreaseCount()
     {
         int currentCount = Convert.ToInt32(textCount.text);
         int updateCount = currentCount + trigerCountWeight;
         textCount.text = Convert.ToString(updateCount);
     }
-    void PlayerDiscreaseCount()
+    private void PlayerDiscreaseCount()
     {
         int currentCount = Convert.ToInt32(textCount.text);
         int updateCount = currentCount - trigerCountWeight;
         textCount.text = Convert.ToString(updateCount);
     }
 }
+

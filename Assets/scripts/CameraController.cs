@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] Transform camera;
-    [SerializeField] Transform player;
-    [SerializeField] Vector3 Offset;
-    [SerializeField] float SmoothTime = 0.3f;
-
+    #region variable
+    [SerializeField] private Transform camera;
+    [SerializeField] private Transform player;
+    [SerializeField] private Vector3 Offset;
+    [SerializeField] private float SmoothTime = 0.3f;
     private Vector3 velocity = Vector3.zero;
-
+    #endregion
     private void Start()
     {
         Offset = camera.position - player.position;
