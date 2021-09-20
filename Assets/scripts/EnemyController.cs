@@ -9,8 +9,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject[] prefabEnemyArray;
     [SerializeField] private Transform enemySpace;
     [SerializeField] private Animator[] animationEnemy;
-    [SerializeField] private Vector3 offset;
+    [SerializeField] private Vector3[] offset;
     private Transform playerTransform;
+    [SerializeField] private int prefabArrayVolume = 10;
     #endregion
     private void Start()
     {
@@ -36,11 +37,15 @@ public class EnemyController : MonoBehaviour
     }
     private void InstantiateEnemyPrefab()
     {
-        prefabEnemyArray = new GameObject[10];
-        animationEnemy = new Animator[10];
+
+        prefabEnemyArray = new GameObject[prefabArrayVolume];
+        animationEnemy = new Animator[prefabArrayVolume];
         for (int i = 0; i < prefabEnemyArray.Length; i++)
         {
-            prefabEnemyArray[i] = Instantiate(prefabEnemy, enemySpace);
+            var x = Random.Range(-5, 5);
+            var z = Random.Range(-5, 5);
+            Vector3 randomPosition = enemySpace.localPosition + new Vector3(x, 0, z);
+            prefabEnemyArray[i] = Instantiate(prefabEnemy, randomPosition, Quaternion.identity, enemySpace);
             var enemy = prefabEnemyArray[i];
         }
         for (int y = 0; y < prefabEnemyArray.Length; y++)
@@ -53,7 +58,7 @@ public class EnemyController : MonoBehaviour
         for (int i = 0; i < animationEnemy.Length; i++)
         {
             animationEnemy[i].transform.LookAt(playerTransform);
-            prefabEnemyArray[i].transform.position = Vector3.Slerp(prefabEnemyArray[i].transform.position, playerTransform.position + offset, Time.deltaTime);
+            prefabEnemyArray[i].transform.position = Vector3.Slerp(prefabEnemyArray[i].transform.position, playerTransform.position + offset[i], Time.deltaTime);
         }
     }
 }
